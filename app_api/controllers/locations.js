@@ -8,6 +8,15 @@ const locationsListByDistance = function (req, res) {
 		type: "Point",
 		coordinates: [lng, lat]
 	};
+
+	if (!lng || !lat) {
+		res
+			.status(404)
+			.json({
+				"message" : "lng and lat query parameters are required"
+			});
+		return;
+	}
 	Loc.aggregate(
         [
             {
@@ -21,20 +30,26 @@ const locationsListByDistance = function (req, res) {
         ],
         function(err, results) {
 					let locations = [];
-					results.forEach((doc) => {
-						locations.push({
-							distance: doc.distance,
-							name: doc.name,
-							address: doc.address,
-							rating: doc.rating,
-							facilities: doc.facilities,
-							_id: doc._id
-				});
-		});
-		res
-			.status(200)
-			.json(locations);
-	});		
+					if (err) {
+						res
+							.status(404)
+							.json(err);
+					} else {
+						results.forEach((doc) => {
+							locations.push({
+								distance: doc.distance,
+								name: doc.name,
+								address: doc.address,
+								rating: doc.rating,
+								facilities: doc.facilities,
+								_id: doc._id
+							});
+						});
+						res
+							.status(200)
+							.json(locations);
+					}
+			});
 };
 
 const locationsCreate = function (req, res) { 
