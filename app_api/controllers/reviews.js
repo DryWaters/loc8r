@@ -2,9 +2,27 @@ const mongoose = require('mongoose');
 const Loc = mongoose.model('Location');
 
 const reviewsCreate = function (req, res) { 
-	res
-		.status(200)
-		.json({"status" : "success"})
+	const locationid = req.params.locationid;
+	if (locationid) {
+		Loc
+			.findById(locationid)
+			.select('reviews')
+			.exec((err, location) => {
+				if (err) {
+					res
+						.status(400)
+						.json(err);
+				} else {
+					_doAddReview(req, res, location);
+				}
+			}
+		);
+	} else {
+		res
+			.status(404)
+			.json({ "message": "Not found, locationid required"
+		});
+	}
 };
 
 const reviewsReadOne = function (req, res) { 
