@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === 'production') {
 	apiOptions.server = 'https://frozen-fjord-23254.herokuapp.com';
 }
 
+console.log(apiOptions);
+
 const _renderHomePage = function(req, res, responseBody) {
 	let message = null;
 	if (!(responseBody instanceof Array)) {
