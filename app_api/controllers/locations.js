@@ -4,12 +4,13 @@ const Loc = mongoose.model('Location');
 const locationsListByDistance = function (req, res) { 
 	const lng = parseFloat(req.query.lng);
 	const lat = parseFloat(req.query.lat);
+	const maxDistance = req.query.maxDistance;
 	const point = {
 		type: "Point",
 		coordinates: [lng, lat]
 	};
 
-	if (!lng || !lat) {
+	if ((!lng && lng !== 0) || (!lat && lat !== 0)) {
 		res
 			.status(404)
 			.json({
@@ -24,7 +25,7 @@ const locationsListByDistance = function (req, res) {
                     'near': point,
                     'spherical': true,
                     'distanceField': 'distance',
-                    'maxDistance': 5000
+                    'maxDistance': maxDistance
                 }
             }
         ],
