@@ -4,7 +4,6 @@ const Loc = mongoose.model('Location');
 const locationsListByDistance = function (req, res) { 
 	const lng = parseFloat(req.query.lng);
 	const lat = parseFloat(req.query.lat);
-	const maxDistance = req.query.maxDistance;
 	const point = {
 		type: "Point",
 		coordinates: [lng, lat]
@@ -25,7 +24,7 @@ const locationsListByDistance = function (req, res) {
                     'near': point,
                     'spherical': true,
                     'distanceField': 'distance',
-                    'maxDistance': maxDistance
+                    'maxDistance': 200
                 }
             }
         ],
@@ -174,10 +173,30 @@ const locationsUpdateOne = function (req, res) {
 	);
 };
 
-const locationsDeleteOne = function (req, res) {	
-	res
-		.status(200)
-		.json({"status" : "success"})
+const locationsDeleteOne = function (req, res) {
+	const locationid = req.params.locationid;
+	if (locationid) {
+		Loc
+			.findByIdAndRemove(locationid)
+			.exec((err, location) => {
+				if (err) {
+					res
+						.status(404)
+						.json(err);
+					return;
+				}
+				res
+					.status(204)
+					.json(null);
+			}
+		);
+	} else {
+		res
+			.status(404)
+			.json({
+				"message" : "No locationid"
+			});
+	}
 };
 
 module.exports = {
