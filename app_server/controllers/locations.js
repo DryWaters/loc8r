@@ -4,10 +4,8 @@ const apiOptions = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-	apiOptions.server = 'https://frozen-fjord-23254.herokuapp.com';
+	apiOptions.server = 'https://frozen-fjord-23254.herokuapp.com';	
 }
-
-console.log(apiOptions);
 
 const _renderHomePage = function(req, res, responseBody) {
 	let message = null;
@@ -35,13 +33,13 @@ const _renderHomePage = function(req, res, responseBody) {
 const homelist = function(req, res) {
 	const path = '/api/locations';
 	const requestOptions = {
-		url: apiOptions.server + path,
-		method: 'GET',
-		json: {},
-		qs: {
-			lng: -0.9590880,
-			lat: 51.455040,
-			maxDistance: 200
+		url : apiOptions.server + path,
+		method : 'GET',
+		json : {},
+		qs : {
+			lng : -0.9590880,
+			lat : 51.455040,
+			maxDistance : 200
 		}
 	};
 	request(
