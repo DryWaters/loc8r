@@ -38,7 +38,6 @@ const homelist = function(req, res){
 /* GET 'Location info' page */
 const locationInfo = function(req, res){
   _getLocationInfo(req, res, (req, res, responseData) => {
-    console.log(responseData);
     _renderDetailPage(req, res, responseData);
   });
 };
@@ -186,8 +185,6 @@ const _showError = function (req, res, status) {
     content : content
   });
 };
-
-
 
 module.exports = {
   homelist,

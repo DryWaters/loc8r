@@ -9,17 +9,29 @@ block content
     .col-12.col-md-8
       .error= message
 
-      each location in locations
-        .card
-          .card-block
-            h4
-              a(href=`/location/${location._id}`)= location.name
-              small &nbsp;
-                +outputRating(location.rating)
-              span.badge.badge-pill.badge-default.float-right= location.distance
-            p.address= location.address
-            .facilities
-              each facility in location.facilities
-                span.badge.badge-warning= facility
+      app-home-list Loading...
+
+      //- each location in locations
+      //-   .card
+      //-     .card-block
+      //-       h4
+      //-         a(href=`/location/${location._id}`)= location.name
+      //-         small &nbsp;
+      //-           +outputRating(location.rating)
+      //-         span.badge.badge-pill.badge-default.float-right= location.distance
+      //-       p.address= location.address
+      //-       .facilities
+      //-         each facility in location.facilities
+      //-         .row
+      //-           .col-12.col-md-8
+      //-             .error= message
+      //-             app-home-list Loading...
+      //-           span.badge.badge-warning= facility
     .col-12.col-md-4
       p.lead= sidebar
+
+  block scripts
+    script(src='/build/inline.318b50c57b4eba3d437b.bundle.js')
+    script(src='/build/main.1eaeee85f9eca28168bd.bundle.js')
+    script(src='/build/polyfills.bf95165a1d5098766b92.bundle.js')
+    script(src='/build/styles.ac89bfdd6de82636b768.bundle.js')

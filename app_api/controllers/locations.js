@@ -24,7 +24,7 @@ const locationsListByDistance = function (req, res) {
                     'near': point,
                     'spherical': true,
                     'distanceField': 'distance',
-                    'maxDistance': 200
+                    'maxDistance': 2000
                 }
             }
         ],
